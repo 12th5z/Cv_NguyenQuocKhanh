@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV - Nguyễn Quốc Khánh - Frontend Developer &amp; Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --text-primary: #111827;
+      --text-secondary: #374151;
+      --link-color: #1d4ed8;
+      --border-color: #111827;
+      --bg-outer: #f3f4f6;
+      --bg-page: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-primary);
+      font-size: 13.5px;
+      line-height: 1.48;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nút xuất PDF nổi góc phải (ẩn khi in) */
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background-color: #111827;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      z-index: 100;
+    }
+
+    .print-btn:hover {
+      background-color: #374151;
+      transform: translateY(-1px);
+    }
+
+    /* Khung giấy A4 chuẩn */
+    .cv-container {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 28px auto;
+      padding: 14mm 16mm;
+      background-color: var(--bg-page);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Header thông tin cá nhân */
+    .cv-header {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .cv-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .cv-contact {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .cv-contact a {
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cv-contact a:hover {
+      color: var(--link-color);
+      border-bottom-color: var(--link-color);
+    }
+
+    .divider {
+      margin: 0 6px;
+      color: #9ca3af;
+    }
+
+    /* Tiêu đề từng mục */
+    .cv-section {
+      margin-top: 14px;
+    }
+
+    .section-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-primary);
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 3px;
+      margin-bottom: 8px;
+    }
+
+    /* Mục tiêu nghề nghiệp */
+    .summary-text {
+      text-align: justify;
+      color: var(--text-primary);
+    }
+
+    /* Học vấn & Dự án */
+    .entry-block {
+      margin-bottom: 11px;
+    }
+
+    .entry-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .entry-title {
+      font-weight: 700;
+      font-size: 13.8px;
+      color: var(--text-primary);
+    }
+
+    .entry-role {
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .entry-date {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .entry-subrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+
+    .entry-subtitle {
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .entry-links {
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .inline-link {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
+
+    .edu-details {
+      margin-top: 3px;
+      font-size: 13.2px;
+      color: var(--text-primary);
+    }
+
+    /* Danh sách gạch đầu dòng dự án */
+    .bullet-list {
+      padding-left: 18px;
+      margin-top: 3px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 3px;
+      color: var(--text-primary);
+    }
+
+    .bullet-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Kỹ năng kỹ thuật */
+    .skills-list {
+      list-style: none;
+    }
+
+    .skills-list li {
+      margin-bottom: 4px;
+      line-height: 1.48;
+    }
+
+    .skills-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-label {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Responsive cho màn hình điện thoại / tablet */
+    @media (max-width: 820px) {
+      .cv-container {
+        width: auto;
+        min-height: auto;
+        margin: 12px;
+        padding: 20px 18px;
+      }
+
+      .entry-row,
+      .entry-subrow {
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .print-btn {
+        top: auto;
+        bottom: 16px;
+        right: 16px;
+      }
+    }
+
+    /* Định dạng chuẩn khi bấm In / Lưu PDF (Ctrl + P) */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm;
+      }
+
+      body {
+        background: none;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .cv-container {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      .inline-link {
+        color: var(--text-primary);
+        text-decoration: underline;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="print-btn no-print" onclick="window.print()">In / Xuất PDF</button>
+
+  <main class="cv-container">
+    <!-- HEADER -->
+    <header class="cv-header">
+      <h1 class="cv-name">Nguyễn Quốc Khánh</h1>
+      <div class="cv-contact">
+        <span>Thành phố Hồ Chí Minh, Việt Nam</span>
+        <span class="divider">|</span>
+        <a href="mailto:Ngynquockhanh@gmail.com">Ngynquockhanh@gmail.com</a>
+      </div>
+      <div class="cv-contact">
+        <a href="https://github.com/12th5z" target="_blank" rel="noopener noreferrer">github.com/12th5z</a>
+        <span class="divider">|</span>
+        <a href="https://12th5z.github.io/Portfolio" target="_blank" rel="noopener noreferrer">12th5z.github.io/Portfolio</a>
+      </div>
+    </header>
+
+    <!-- MỤC TIÊU NGHỀ NGHIỆP -->
+    <section class="cv-section">
+      <h2 class="section-title">Mục tiêu nghề nghiệp</h2>
+      <p class="summary-text">
+        Sinh viên năm cuối ngành Kỹ thuật Phần mềm chuyên về Phát triển Giao diện người dùng (Frontend Development).
+        Hoàn thành tất cả 141 tín chỉ đại học vào năm thứ 3, hiện đang chờ tốt nghiệp (tháng 7 năm 2027) mà không còn
+        môn học nào cần hoàn thành tại trường, sẵn sàng nhận việc toàn thời gian ngay lập tức. Tìm kiếm vị trí Thực tập
+        sinh / Sinh viên mới tốt nghiệp ngành Phát triển Giao diện người dùng để đóng góp vào các ứng dụng đang được
+        phát triển. Tầm nhìn 2 năm: Chuyển sang vai trò lập trình viên junior thông qua kinh nghiệm làm việc nhóm thực
+        tế, sau đó phát triển thành Lập trình viên Full-Stack bằng cách củng cố chuyên môn về thiết kế hệ thống và
+        backend.
+      </p>
+    </section>
+
+    <!-- GIÁO DỤC -->
+    <section class="cv-section">
+      <h2 class="section-title">Giáo dục</h2>
+      <div class="entry-block">
+        <div class="entry-row">
+          <div class="entry-title">Đại học Ngoại ngữ và Công nghệ Thông tin TP.HCM (HUFLIT)</div>
+          <div class="entry-date">Tháng 9 năm 2023 – Tháng 7 năm 2027 (Dự kiến)</div>
+        </div>
+        <div class="entry-subrow">
+          <div class="entry-subtitle">Cử nhân Kỹ thuật Phần mềm</div>
+        </div>
+        <div class="edu-details">
+          Điểm trung bình tích lũy: <strong>2.81 / 4.0</strong>
+          <span class="divider">|</span>
+          Số tín chỉ: <strong>141/141</strong> (Đã hoàn thành tất cả các môn học)
+          <span class="divider">|</span>
+          <!-- Thay '#' bằng link bảng điểm chính thức của bạn -->
+          <a href="file:///C:/Users/Asus/Downloads/CV_NguyenQuocKhanh/NguyenQuocKhanh.html" class="inline-link" target="_blank" rel="noopener noreferrer">Bản sao</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÁC DỰ ÁN NỔI BẬT -->
+    <section class="cv-section">
+      <h2 class="section-title">Các dự án nổi bật</h2>
+
+      <!-- Dự án 1 -->
+      <div class="entry-block">
+        <div class="entry-row">
+          <div class="entry-title">
+            Bách Hoá Xanh – Website quản lý bán hàng
+            <span class="divider">|</span>
+            <span class="entry-role">Lập trình viên Fullstack</span>
+          </div>
+          <div class="entry-date">2023 – 2024</div>
+        </div>
+        <div class="entry-subrow">
+          <div class="entry-subtitle">HTML, CSS, JavaScript, C#, SQL Server</div>
+          <div class="entry-links">
+            <!-- Thay '#' bằng link repo GitHub và link trang web demo -->
+            <a href="https://github.com/12th5z/BachHoaXanh" class="inline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span class="divider">|</span>
+            <a href="https://byvn.net/50mh" class="inline-link" target="_blank" rel="noopener noreferrer">Trang web</a>
+          </div>
+        </div>
+        <ul class="bullet-list">
+          <li>Phát triển website mô phỏng hệ thống Bách Hóa Xanh theo mô hình MVC, hỗ trợ quản lý hoạt động bán hàng trực tuyến.</li>
+          <li>Xây dựng hệ thống phân quyền cho Quản trị viên, Nhân viên và Khách hàng, đảm bảo quyền truy cập phù hợp với từng vai trò.</li>
+          <li>Triển khai các chức năng CRUD, tìm kiếm và quản lý dữ liệu bằng C# và SQL Server.</li>
+        </ul>
+      </div>
+
+      <!-- Dự án 2 -->
+      <div class="entry-block">
+        <div class="entry-row">
+          <div class="entry-title">
+            CoffeX – Ứng dụng bán đồ uống trên Android
+            <span class="divider">|</span>
+            <span class="entry-role">Lập trình viên Android</span>
+          </div>
+          <div class="entry-date">2024 – Hiện nay</div>
+        </div>
+        <div class="entry-subrow">
+          <div class="entry-subtitle">
+            Java, Firebase Authentication, Realtime Database, RecyclerView, ViewPager2, Fragment
+          </div>
+          <div class="entry-links">
+            <!-- Thay '#' bằng link repo GitHub và link video/APK demo -->
+            <a href="https://github.com/12th5z/CoffeX" class="inline-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span class="divider">|</span>
+            <a href="https://byvn.net/FD7v" class="inline-link" target="_blank" rel="noopener noreferrer">Demo</a>
+          </div>
+        </div>
+        <ul class="bullet-list">
+          <li>Phát triển ứng dụng bán đồ uống trên nền tảng Android, hỗ trợ quản lý và hiển thị sản phẩm.</li>
+          <li>Xây dựng hệ thống phân quyền giữa Quản trị viên và Khách hàng, tích hợp Firebase Authentication để xác thực người dùng.</li>
+          <li>Triển khai các chức năng CRUD, quản lý dữ liệu với Firebase Realtime Database và tích hợp chatbot AI hỗ trợ người dùng.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- KỸ NĂNG KỸ THUẬT -->
+    <section class="cv-section">
+      <h2 class="section-title">Kỹ năng kỹ thuật</h2>
+      <ul class="skills-list">
+        <li>
+          <span class="skill-label">Ngôn ngữ lập trình &amp; Phát triển giao diện người dùng:</span>
+          JavaScript, HTML5, CSS3, Java, C#, Python, OOP cơ bản.
+        </li>
+        <li>
+          <span class="skill-label">Thư viện &amp; Frameworks:</span>
+          Bootstrap 5, ASP.NET Core, Android SDK.
+        </li>
+        <li>
+          <span class="skill-label">Công cụ &amp; Nền tảng:</span>
+          Git, GitHub, MVC, Docker, API RESTful.
+        </li>
+        <li>
+          <span class="skill-label">Hệ thống máy chủ và cơ sở dữ liệu:</span>
+          ASP.NET Core, SQL Server, Firebase.
+        </li>
+        <li>
+          <span class="skill-label">Kỹ năng mềm:</span>
+          Làm việc nhóm, Tự học và Nghiên cứu, Giải quyết vấn đề.
+        </li>
+        <li>
+          <span class="skill-label">Ngôn ngữ:</span>
+          Giao tiếp tiếng Anh cơ bản, khả năng đọc hiểu tài liệu kỹ thuật tốt.
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
